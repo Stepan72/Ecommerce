@@ -7,7 +7,7 @@ import Cart from "./Cart";
 
 function Navbar() {
   const ctx = useContext(Context);
-  console.log(ctx);
+  // console.log(ctx);
 
   return (
     <div className="navbar-container">
