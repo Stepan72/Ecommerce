@@ -14,8 +14,13 @@ import { urlFor } from "../../lib/client";
 
 function Cart() {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart } =
-    useContext(Context);
+  const {
+    totalPrice,
+    totalQuantities,
+    cartItems,
+    setShowCart,
+    toggleCartItemQuantity,
+  } = useContext(Context);
 
   return (
     <div className="cart-wrapper" ref={cartRef}>
@@ -66,11 +71,21 @@ function Cart() {
                     <div className="flex bottim">
                       <div>
                         <p className="quantity-desc">
-                          <span className="minus" onClick>
+                          <span
+                            className="minus"
+                            onClick={() => {
+                              toggleCartItemQuantity(item._id, "dec");
+                            }}
+                          >
                             <AiOutlineMinus />
                           </span>
-                          <span className="num">0</span>
-                          <span className="plus" onClick>
+                          <span className="num">{item.quantity}</span>
+                          <span
+                            className="plus"
+                            onClick={() => {
+                              toggleCartItemQuantity(item._id, "inc");
+                            }}
+                          >
                             <AiOutlinePlus />
                           </span>
                         </p>
@@ -84,6 +99,19 @@ function Cart() {
               );
             })}
         </div>
+        {cartItems.length >= 1 && (
+          <div className="cart-bottom">
+            <div className="total">
+              <h3> Subtotal:</h3>
+              <h3>${totalPrice}</h3>
+            </div>
+            <div className="btn-container">
+              <button type="button" className="btn" onClick>
+                Pay with Stripe
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
