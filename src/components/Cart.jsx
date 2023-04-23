@@ -20,6 +20,7 @@ function Cart() {
     cartItems,
     setShowCart,
     toggleCartItemQuantity,
+    onRemove,
   } = useContext(Context);
 
   return (
@@ -90,7 +91,13 @@ function Cart() {
                           </span>
                         </p>
                       </div>
-                      <button type="button" className="remove-item" onClick>
+                      <button
+                        type="button"
+                        className="remove-item"
+                        onClick={() => {
+                          onRemove(item._id);
+                        }}
+                      >
                         <TiDeleteOutline />
                       </button>
                     </div>

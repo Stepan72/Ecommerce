@@ -13,6 +13,7 @@ const Context = createContext({
   decQty: () => {},
   onAdd: (product, quantity) => {},
   toggleCartItemQuantity: (id, value) => {},
+  onRemove: (id) => {},
 });
 
 export default Context;
@@ -96,6 +97,23 @@ export const StateContext = ({ children }) => {
     }
   }
 
+  function onRemove(id, product) {
+    foundProduct = cartItems.find((item) => {
+      return item._id === id;
+    });
+    const newCartItems = cartItems.filter((item) => {
+      return item._id != id;
+    });
+
+    setTotalPrice((prevTotal) => {
+      return prevTotal - foundProduct.price * foundProduct.quantity;
+    });
+    setTotalQuantities((prevQunt) => {
+      return prevQunt - foundProduct.quantity;
+    });
+    setCartItems(newCartItems);
+  }
+
   const incQty = () => {
     setQty((prevQty) => {
       return prevQty + 1;
@@ -124,6 +142,7 @@ export const StateContext = ({ children }) => {
         onAdd,
         setShowCart,
         toggleCartItemQuantity,
+        onRemove,
       }}
     >
       {children}
