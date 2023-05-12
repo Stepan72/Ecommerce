@@ -3,6 +3,7 @@ import Link from "next/link";
 import { urlFor } from "../../lib/client";
 
 function HeroBanner({ heroBanner }) {
+  // console.log(heroBanner);
   return (
     <div className="hero-banner-container">
       <div>
@@ -16,7 +17,7 @@ function HeroBanner({ heroBanner }) {
         />
 
         <div>
-          <Link href={`/product/ID${heroBanner.product}`}>
+          <Link href={`/product/${heroBanner.product}`}>
             <button type="button">{heroBanner.buttonText}</button>
           </Link>
           <div className="desc">

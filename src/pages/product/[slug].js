@@ -14,6 +14,7 @@ const ProductDetails = ({ product, products }) => {
   const [index, setIndex] = useState(0);
 
   const ctx = useContext(Context);
+  // console.log(product);
 
   const { image, name, details, price } = product;
 
@@ -133,7 +134,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const product = await client.fetch(query);
   const products = await client.fetch(productsQuery);
 
-  //   console.log(product);
+  // console.log(slug);
+  // console.log(product);
 
   return {
     props: { products, product },
