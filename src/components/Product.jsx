@@ -3,13 +3,13 @@ import Link from "next/link";
 import { urlFor } from "../../lib/client";
 
 function Product({ product: { image, name, slug, price } }) {
-  // console.log(slug);
+  console.log(image);
   return (
     <div>
       <Link href={`/product/${slug.current}`}>
         <div className="product-card">
           <img
-            src={urlFor(image && image[0])}
+            src={urlFor(image.length && image[0])}
             alt=""
             width={250}
             height={250}
