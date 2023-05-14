@@ -45,47 +45,47 @@ const ProductDetails = ({ product, products }) => {
               );
             })}
           </div>
-          <div className="product-detail-desc">
-            <h1>{name}</h1>
-            <div className="reviews">
-              <div>
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiOutlineStar />
-              </div>
-              <p>(20)</p>
+        </div>
+        <div className="product-detail-desc">
+          <h1>{name}</h1>
+          <div className="reviews">
+            <div>
+              <AiFillStar />
+              <AiFillStar />
+              <AiFillStar />
+              <AiFillStar />
+              <AiOutlineStar />
             </div>
-            <h4>Details:</h4>
-            <p>{details}</p>
-            <p className="price">${price}</p>
-            <div className="quantity">
-              <h3>Quantity:</h3>
-              <p className="quantity-desc">
-                <span className="minus" onClick={ctx.decQty}>
-                  <AiOutlineMinus />
-                </span>
-                <span className="num">{ctx.qty}</span>
-                <span className="plus" onClick={ctx.incQty}>
-                  <AiOutlinePlus />
-                </span>
-              </p>
-            </div>
-            <div className="buttons">
-              <button
-                type="button"
-                className="add-to-cart"
-                onClick={() => {
-                  ctx.onAdd(product, ctx.qty);
-                }}
-              >
-                Add to Cart
-              </button>
-              <button type="button" className="buy-now" onClick>
-                Buy Now
-              </button>
-            </div>
+            <p>(20)</p>
+          </div>
+          <h4>Details:</h4>
+          <p>{details}</p>
+          <p className="price">${price}</p>
+          <div className="quantity">
+            <h3>Quantity:</h3>
+            <p className="quantity-desc">
+              <span className="minus" onClick={ctx.decQty}>
+                <AiOutlineMinus />
+              </span>
+              <span className="num">{ctx.qty}</span>
+              <span className="plus" onClick={ctx.incQty}>
+                <AiOutlinePlus />
+              </span>
+            </p>
+          </div>
+          <div className="buttons">
+            <button
+              type="button"
+              className="add-to-cart"
+              onClick={() => {
+                ctx.onAdd(product, ctx.qty);
+              }}
+            >
+              Add to Cart
+            </button>
+            <button type="button" className="buy-now" onClick>
+              Buy Now
+            </button>
           </div>
         </div>
       </div>
