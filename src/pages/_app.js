@@ -9,12 +9,12 @@ import store from "@/store/store";
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <StateContext>
-        <Layout>
-          <Toaster />
-          <Component {...pageProps} />
-        </Layout>
-      </StateContext>
+      {/* <StateContext> */}
+      <Layout>
+        <Toaster />
+        <Component {...pageProps} />
+      </Layout>
+      {/* </StateContext> */}
     </Provider>
   );
 }

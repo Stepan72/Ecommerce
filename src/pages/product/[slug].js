@@ -7,19 +7,29 @@ import {
   AiOutlineStar,
 } from "react-icons/ai";
 import { Product } from "@/components";
-import { useContext } from "react";
-import Context from "../../../context/StateContext";
+// import { useContext } from "react";
+// import Context from "../../../context/StateContext";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "@/store/cart-slice";
 
 const ProductDetails = ({ product, products }) => {
   // console.log(products);
   const [index, setIndex] = useState(0);
 
-  const ctx = useContext(Context);
+  /// Old useContext
+  // const ctx = useContext(Context);
   // console.log(product);
+  // console.log(ctx);
 
   const { image, name, details, price } = product;
 
-  // console.log(ctx);
+  /// New Redux
+  const dispatch = useDispatch();
+  const qty = useSelector((state) => state.cart.qty);
+  // console.log(qty);
+  /// Just check
+  // const cart = useSelector((state) => state.cart);
+  // console.log(cart);
   return (
     <div>
       <div className="product-detail-container">
@@ -65,11 +75,26 @@ const ProductDetails = ({ product, products }) => {
           <div className="quantity">
             <h3>Quantity:</h3>
             <p className="quantity-desc">
-              <span className="minus" onClick={ctx.decQty}>
+              <span
+                className="minus"
+                // onClick={
+                //   ctx.decQty}>
+                onClick={() => {
+                  dispatch(cartActions.decQty());
+                }}
+              >
                 <AiOutlineMinus />
               </span>
-              <span className="num">{ctx.qty}</span>
-              <span className="plus" onClick={ctx.incQty}>
+              {/* <span className="num">{ctx.qty}</span> */}
+              <span className="num">{qty}</span>
+
+              <span
+                className="plus"
+                // onClick={ctx.incQty}>
+                onClick={() => {
+                  dispatch(cartActions.incQty());
+                }}
+              >
                 <AiOutlinePlus />
               </span>
             </p>
@@ -79,12 +104,13 @@ const ProductDetails = ({ product, products }) => {
               type="button"
               className="add-to-cart"
               onClick={() => {
-                ctx.onAdd(product, ctx.qty);
+                // ctx.onAdd(product, ctx.qty);
+                dispatch(cartActions.onAdd({ product, qty }));
               }}
             >
               Add to Cart
             </button>
-            <button type="button" className="buy-now" onClick>
+            <button type="button" className="buy-now">
               Buy Now
             </button>
           </div>
@@ -136,7 +162,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const products = await client.fetch(productsQuery);
 
   // console.log(slug);
-  console.log(product);
+  // console.log(product);
 
   return {
     props: { products, product },

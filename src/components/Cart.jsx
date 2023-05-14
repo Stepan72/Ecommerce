@@ -8,28 +8,40 @@ import {
 } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 import toast from "react-hot-toast";
-import Context from "../../context/StateContext";
-import { useContext } from "react";
+// import Context from "../../context/StateContext";
+// import { useContext } from "react";
 import { urlFor } from "../../lib/client";
+import { cartActions } from "@/store/cart-slice";
+import { useSelector, useDispatch } from "react-redux";
 
 function Cart() {
   const cartRef = useRef();
-  const {
-    totalPrice,
-    totalQuantities,
-    cartItems,
-    setShowCart,
-    toggleCartItemQuantity,
-    onRemove,
-  } = useContext(Context);
+
+  /// old useContext
+  // const {
+  //   totalPrice,
+  //   totalQuantities,
+  //   cartItems,
+  //   setShowCart,
+  //   toggleCartItemQuantity,
+  //   onRemove,
+  // } = useContext(Context);
+  /// new Redux
+  const dispatch = useDispatch();
+  const { totalPrice, totalQuantities, cartItems } = useSelector(
+    (state) => state.cart
+  );
 
   return (
     <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
         <button
           className="cart-heading"
+          // onClick={() => {
+          //   setShowCart(false);
+          // }}
           onClick={() => {
-            setShowCart(false);
+            dispatch(cartActions.setShowCart());
           }}
           type="button"
         >
@@ -45,8 +57,11 @@ function Cart() {
               <button
                 type="button"
                 className="btn"
+                // onClick={() => {
+                //   setShowCart(false);
+                // }}
                 onClick={() => {
-                  setShowCart(false);
+                  dispatch(cartActions.setShowCart());
                 }}
               >
                 Continue Shopping
@@ -75,7 +90,15 @@ function Cart() {
                           <span
                             className="minus"
                             onClick={() => {
-                              toggleCartItemQuantity(item._id, "dec");
+                              // toggleCartItemQuantity(item._id, "dec");
+                              const id = item._id;
+                              const value = "dec";
+                              dispatch(
+                                cartActions.toggleCartItemQuantity({
+                                  id,
+                                  value,
+                                })
+                              );
                             }}
                           >
                             <AiOutlineMinus />
@@ -84,7 +107,15 @@ function Cart() {
                           <span
                             className="plus"
                             onClick={() => {
-                              toggleCartItemQuantity(item._id, "inc");
+                              // toggleCartItemQuantity(item._id, "inc");
+                              const id = item._id;
+                              const value = "inc";
+                              dispatch(
+                                cartActions.toggleCartItemQuantity({
+                                  id,
+                                  value,
+                                })
+                              );
                             }}
                           >
                             <AiOutlinePlus />
@@ -95,7 +126,8 @@ function Cart() {
                         type="button"
                         className="remove-item"
                         onClick={() => {
-                          onRemove(item._id);
+                          // onRemove(item._id);
+                          dispatch(cartActions.onRemove(item));
                         }}
                       >
                         <TiDeleteOutline />
@@ -110,10 +142,11 @@ function Cart() {
           <div className="cart-bottom">
             <div className="total">
               <h3> Subtotal:</h3>
+
               <h3>${totalPrice}</h3>
             </div>
             <div className="btn-container">
-              <button type="button" className="btn" onClick>
+              <button type="button" className="btn">
                 Pay with Stripe
               </button>
             </div>
