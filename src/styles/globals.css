@@ -268,7 +268,7 @@ span.text-red {
   right: 0;
   top: 0;
   z-index: 100;
-  /* will-change: transform; */
+  will-change: transform;
   transition: all 1s ease-in-out;
 }
 .cart-container {
@@ -335,6 +335,7 @@ span.text-red {
 }
 .product {
   display: flex;
+
   gap: 30px;
   padding: 20px;
 }
