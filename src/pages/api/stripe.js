@@ -17,7 +17,7 @@ const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    // console.log(req.body);
+    console.log(req.body);
     try {
       const params = {
         submit_type: "pay",
@@ -59,8 +59,11 @@ export default async function handler(req, res) {
           };
         }),
 
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
+        // success_url: `${req.headers.origin}/?success=true`,
+        success_url: `${req.headers.origin}/success`,
+
+        // cancel_url: `${req.headers.origin}/?canceled=true`,
+        cancel_url: `${req.headers.origin}/`,
       };
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);

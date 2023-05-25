@@ -605,6 +605,11 @@ span.text-red {
   margin-left: 5px;
   color: #f02d34;
 }
+
+.button__success {
+  width: 300px;
+}
+
 .product-max-qty {
   margin-top: 10px;
 }
